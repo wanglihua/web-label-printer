@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"printer/config"
 	"printer/core"
 	"printer/middleware"
+	"printer/route"
 
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-contrib/sessions"
@@ -53,4 +55,14 @@ func main() {
 
 	// if configured as a backend behind a reverse proxy, this gzip compression is not needed
 	engine.Use(gzip.Gzip(gzip.DefaultCompression)) // keep it here, the main errors are handled by action.Handle()
+
+	// route
+	route.Route(engine)
+
+	var webPort = config.GetHttpPort()
+	err = engine.Run(fmt.Sprintf(":%s", webPort))
+	if err != nil {
+		core.LogAppStartupError(err)
+		return
+	}
 }

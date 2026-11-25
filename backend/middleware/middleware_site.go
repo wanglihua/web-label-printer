@@ -56,7 +56,7 @@ func Site() gin.HandlerFunc {
 				// this apparently cannot be sent to the client
 				c.JSON(http.StatusOK, core.ResultMessage{
 					Success: false,
-					Message: fmt.Sprintf("系统出现错误#%s，请联系管理员！详细：%s", errorCode, errorDesc),
+					Message: fmt.Sprintf("System error occurred #%s, please contact the administrator! Details: %s", errorCode, errorDesc),
 				})
 
 				c.Abort() // must be called
@@ -94,7 +94,7 @@ func Site() gin.HandlerFunc {
 
 			c.JSON(http.StatusOK, core.ResultMessage{
 				Success: false,
-				Message: fmt.Sprintf("处理请求出现错误#%s，请联系管理员！详细：%s", errorCode, errorDesc),
+				Message: fmt.Sprintf("Error occurred while processing the request #%s, please contact the administrator! Details: %s", errorCode, errorDesc),
 			})
 
 			c.Abort()
