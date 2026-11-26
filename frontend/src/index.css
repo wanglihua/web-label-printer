@@ -1,0 +1,178 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+
+:root {
+    /* This is the default value */
+    /*--el-overlay-color-lighter: #00000080;*/
+    /*--el-overlay-color-light: #000000b3;*/
+    /*--el-overlay-color: #000c;*/
+
+    --el-overlay-color-lighter: #00000025;
+    --el-overlay-color-light: #00000025;
+    --el-overlay-color: #00000025;
+
+    --admin-main-bg-color: #f6f6f6;
+}
+
+.el-table thead tr {
+    background-color: var(--el-fill-color-light);
+}
+
+.el-table thead th.el-table__cell {
+    background-color: var(--el-fill-color-light);
+}
+
+.iconfont {
+    font-size: 14px;
+    padding-right: 2px;
+}
+
+.el-message-box {
+    vertical-align: top !important;
+    margin-top: 18vh !important;
+}
+
+.el-loading-mask {
+    cursor: wait !important;
+}
+
+.el-loading-spinner {
+    top: 35px !important;
+}
+
+.el-loading-spinner .circular {
+    height: calc(var(--el-loading-spinner-size) / 1.5) !important;
+    width: calc(var(--el-loading-spinner-size) / 1.5) !important;
+}
+
+.el-menu--popup .el-menu-item {
+    height: 44px !important;
+    line-height: 44px !important;
+}
+
+.admin-main-content {
+    background-color: white;
+}
+
+.admin-main-content .page-main {
+    padding: 12px 20px;
+}
+
+.admin-main-content .page-main .page-action {
+    padding: 0;
+}
+
+.admin-main-content .page-main .page-query {
+    padding: 20px 0 5px 0;
+}
+
+.admin-main-content .page-main .page-data {
+    padding: 10px 0;
+}
+
+.admin-main-content .page-main .data-empty {
+    width: 200px;
+    height: 220px;
+    background-image: url("./assets/images/data-empty.jpg");
+    background-repeat: no-repeat;
+    background-position: top center;
+    padding-bottom: 40px;
+}
+
+.admin-main-content .page-main .data-empty span {
+    display: block;
+    width: 200px;
+    padding-top: 180px;
+}
+
+.admin-main-content .page-main .el-pagination {
+    margin: 18px 10px;
+}
+
+.admin-main-content .page-main .el-form-item__error {
+    font-size: 14px;
+}
+
+.admin-main-content .page-detail {
+    padding: 20px;
+}
+
+table.data-table {
+    border-collapse: collapse;
+    border: 1px solid var(--el-border-color-lighter);
+}
+
+table.data-table caption {
+    padding: 10px 16px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+table.data-table thead th, table.data-table tbody td {
+    border: 1px solid var(--el-border-color-lighter);
+    padding: 10px 16px;
+}
+
+table.data-table thead th {
+    background-color: var(--el-fill-color-light);
+}
+
+table.striped {
+    border-collapse: collapse;
+}
+
+table.striped tbody > tr:nth-child(odd) {
+    background-color: var(--el-color-white);
+}
+
+table.striped tbody > tr:nth-child(even) {
+    background-color: var(--el-fill-color-lighter);
+}
+
+table.striped tbody > tr:hover {
+    background-color: var(--el-fill-color-light);
+}
+
+span.unit {
+    font-size: smaller;
+    display: inline-block;
+    padding-left: 3px;
+    color: var(--el-text-color-placeholder);
+}
+
+div.more-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+span.num {
+    font-family: monospace, "Courier New";
+}
+
+i.el-message-box-icon--info {
+    width: 38px;
+    height: 38px;
+}
+
+.el-popover__title {
+    color: #239fea;
+    font-weight: bold;
+}
+
+div.break-word {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.msg-notification {
+    cursor: pointer;
+}
+
+span.link-btn {
+    color: var(--el-color-primary);
+    cursor: pointer;
+}
