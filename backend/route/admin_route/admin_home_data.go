@@ -1,4 +1,4 @@
-package home_route
+package admin_route
 
 import (
 	"fmt"
@@ -12,16 +12,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type HomeDataActionParam struct {
-}
+func adminHomeDataRoute(router *gin.RouterGroup) {
+	type ActionParam struct{}
 
-type HomeDataActionResult struct {
-	core.ResultMessage
-}
-
-func homeDataRoute(router *gin.RouterGroup) {
-	type ActionParam = HomeDataActionParam
-	type ActionResult = HomeDataActionResult
+	type ActionResult struct {
+		core.ResultMessage
+	}
 
 	var actionConfig = &action.Config{}
 

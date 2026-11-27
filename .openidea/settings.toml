@@ -1,0 +1,5 @@
+[spelling]
+projectWords = ["gonic", "logrus", "sirupsen"]
+
+[projectStructure]
+excluded = ["backend/logs"]
