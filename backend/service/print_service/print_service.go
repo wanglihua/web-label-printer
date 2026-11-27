@@ -12,6 +12,7 @@ import (
 
 	"printer/config"
 	"printer/core"
+	"printer/core/serial_code"
 )
 
 const (
@@ -58,7 +59,9 @@ func downloadFile(url string, dir string) (string, error) {
 		return "", core.HandleError(fmt.Errorf("fetch pdf from %s failed, status: %s", url, resp.Status))
 	}
 
-	file, err := os.CreateTemp(dir, "*.pdf")
+	// file, err := os.CreateTemp(dir, "*.pdf")
+	var tempFileName = fmt.Sprintf("%s.pdf", serial_code.CreateSerialCode())
+	file, err := os.Create(filepath.Join(dir, tempFileName))
 	if err != nil {
 		return "", core.HandleError(fmt.Errorf("create pdf temp file failed, %w", err))
 	}
