@@ -5,4 +5,6 @@ import (
 )
 
 func Route(router *gin.RouterGroup) {
+	printGetRoute(router)
+	printPostRoute(router)
 }

@@ -2,4 +2,4 @@
 projectWords = ["gonic", "logrus", "sirupsen"]
 
 [projectStructure]
-excluded = ["backend/logs"]
+excluded = ["backend/logs", "backend/route/static_route/www_root"]
