@@ -4,5 +4,5 @@
 /backend/logs
 /backend/route/static_route/www_root
 .env
-/temp
+/backend/temp
 SumatraPDF-settings.txt

@@ -14,7 +14,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <page-header menu="admin-home"/>
+    <page-header menu="admin_home"/>
 </template>
 
 <style scoped>
