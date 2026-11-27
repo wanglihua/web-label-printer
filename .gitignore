@@ -4,3 +4,5 @@
 /backend/logs
 /backend/route/static_route/www_root
 .env
+/temp
+SumatraPDF-settings.txt

@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	sumatraPdfCommand = "SumatraPDF"
+	sumatraPdfAppName = "SumatraPDF.exe"
 	// direct links and redirects to a pdf should not take forever, but some servers are slow
 	downloadTimeout = 2 * time.Minute
 	// SumatraPDF may hand the file to an already running instance and return before printing is finished,
@@ -26,7 +26,9 @@ const (
 
 // Print downloads the pdf file from pdfUrl and sends it to the default printer via SumatraPDF.
 func Print(pdfUrl string) error {
-	tempDir := filepath.Join(core.GetAppPath(), config.PrintTempDir)
+	var appPath = core.GetAppPath()
+
+	var tempDir = filepath.Join(appPath, config.PrintTempDir)
 	if err := os.MkdirAll(tempDir, os.ModePerm); err != nil {
 		return core.HandleError(fmt.Errorf("create print temp dir failed, %w", err))
 	}
@@ -38,10 +40,11 @@ func Print(pdfUrl string) error {
 		return core.HandleError(err)
 	}
 
+	var sumatraPdfCommand = filepath.Join(appPath, "tools", sumatraPdfAppName)
 	output, err := exec.Command(sumatraPdfCommand, "-print-to-default", "-silent", localFile).CombinedOutput()
 	if err != nil {
 		os.Remove(localFile)
-		return core.HandleError(fmt.Errorf("run %s failed, %w, output: %s", sumatraPdfCommand, err, strings.TrimSpace(string(output))))
+		return core.HandleError(fmt.Errorf("run %s failed, %w, output: %s", sumatraPdfAppName, err, strings.TrimSpace(string(output))))
 	}
 
 	return nil
