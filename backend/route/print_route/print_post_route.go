@@ -16,19 +16,13 @@ import (
 
 func printPostRoute(router *gin.RouterGroup) {
 	type ActionParam struct {
-		Pdf   string `form:"pdf"`
-		Token string `form:"token"`
+		Pdf string `form:"pdf"`
 	}
 
 	var validateActionParam = func(param *ActionParam) error {
 		var pdf = strings.TrimSpace(param.Pdf)
 		if pdf == "" {
 			return fmt.Errorf("pdf url to print should not be empty")
-		}
-
-		var token = strings.TrimSpace(param.Token)
-		if token == "" {
-			return fmt.Errorf("token should not be empty")
 		}
 
 		return nil
@@ -55,9 +49,8 @@ func printPostRoute(router *gin.RouterGroup) {
 		}
 
 		var pdfUrl = param.Pdf
-		var token = param.Token
 
-		err = print_service.Print(pdfUrl, token)
+		err = print_service.Print(pdfUrl)
 		if err != nil {
 			return core.HandleError(err)
 		}
