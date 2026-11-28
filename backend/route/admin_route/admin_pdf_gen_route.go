@@ -7,7 +7,6 @@ import (
 	"printer/route/action"
 	"strings"
 
-	"github.com/boombuler/barcode"
 	"github.com/boombuler/barcode/qr"
 	"github.com/gin-gonic/gin"
 	"github.com/signintech/gopdf"
@@ -56,48 +55,43 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 		// todo check time token
 
 		pdf := gopdf.GoPdf{}
-		pdf.Start(gopdf.Config{PageSize: *gopdf.PageSizeA4})
-		pdf.AddPage()
-
-		// 1. Blue rectangle (unclipped, for reference)
-		pdf.SetFillColor(200, 200, 255)
-		pdf.RectFromUpperLeftWithStyle(50, 50, 100, 100, "F")
-
-		// 2. Red rectangle clipped to triangle
-		pdf.SaveGraphicsState() // Save state before clipping
-		pdf.ClipPolygon([]gopdf.Point{
-			{X: 250, Y: 50},  // top
-			{X: 350, Y: 200}, // bottom-right
-			{X: 150, Y: 200}, // bottom-left
+		pdf.Start(gopdf.Config{
+			Unit: gopdf.UnitMM,
+			PageSize: gopdf.Rect{
+				W: 100,
+				H: 150,
+			},
 		})
-		pdf.SetFillColor(255, 0, 0)
-		pdf.RectFromUpperLeftWithStyle(150, 50, 200, 200, "F")
-		pdf.RestoreGraphicsState() // Restore state - clipping no longer active
 
-		// 3. Green rectangle (NOT clipped - proves RestoreGraphicsState works)
-		pdf.SetFillColor(0, 200, 0)
-		pdf.RectFromUpperLeftWithStyle(400, 50, 100, 100, "F")
-
-		// Create the barcode
-		qrCode, err := qr.Encode("Hello World", qr.M, qr.Auto)
-		if err != nil {
-			return core.HandleError(err)
-		}
+		pdf.AddPage()
 
 		// draw qrcode
 		{
-			pdf.SaveGraphicsState()
+			var data = "Hello World"
+			var top float64 = 30
+			var left float64 = 10
+			var width float64 = 80
 
-			var xOffset = 100
-			var yOffset = 300
-			var scale = 3
+			// create the qrcode
+			qrcode, err := qr.Encode(data, qr.M, qr.Auto)
+			if err != nil {
+				return core.HandleError(err)
+			}
+
+			var rect = qrcode.Bounds()
+			if rect.Dx() <= 0 {
+				return core.HandleError(fmt.Errorf("qrcode width is zero"))
+			}
+
+			var scale = width / float64(rect.Dx())
+
+			pdf.SaveGraphicsState()
 
 			const pdfColorMax = 255
 			const qrcodeColorMax = 65535
-			var rect = qrCode.Bounds()
 			for x := rect.Min.X; x < rect.Max.X; x++ {
 				for y := rect.Min.Y; y < rect.Max.Y; y++ {
-					var pointColor = qrCode.At(x, y)
+					var pointColor = qrcode.At(x, y)
 					var r, g, b, _ = pointColor.RGBA()
 
 					var red = uint8(math.Round(float64(r * pdfColorMax / qrcodeColorMax)))
@@ -106,22 +100,17 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 
 					pdf.SetStrokeColor(red, green, blue)
 					pdf.SetFillColor(red, green, blue)
+
 					pdf.Rectangle(
-						float64(x*scale+xOffset),
-						float64(y*scale+yOffset),
-						float64((x+1)*scale+xOffset),
-						float64((y+1)*scale+yOffset),
+						float64(x)*scale+left,
+						float64(y)*scale+top,
+						float64(x+1)*scale+left,
+						float64(y+1)*scale+top,
 						"DF", 0, 0)
 				}
 			}
 
 			pdf.RestoreGraphicsState()
-		}
-
-		// Scale the barcode to 200x200 pixels
-		qrCode, err = barcode.Scale(qrCode, 200, 200)
-		if err != nil {
-			return core.HandleError(err)
 		}
 
 		// pdf.WritePdf("clip-polygon.pdf")
