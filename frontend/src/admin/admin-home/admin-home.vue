@@ -16,7 +16,7 @@ function printTest() {
     post("/api/admin/print_test", {}, function (res) {
         const pdfUrl = res.pdfUrl;
 
-        post("/print", {
+        post("http://localhost:8113/print", {
             pdf: pdfUrl
         }, function (res) {
             showSuccess(res.message);
