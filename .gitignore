@@ -1,5 +1,6 @@
 *.exe
 *.exe~
+*.exe*
 /backend/vendor
 /backend/logs
 /backend/route/static_route/www_root

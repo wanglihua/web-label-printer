@@ -1,5 +1,5 @@
 [spelling]
-projectWords = ["gonic", "logrus", "sirupsen"]
+projectWords = ["barcode", "boombuler", "gonic", "gopdf", "logrus", "signintech", "sirupsen"]
 
 [projectStructure]
 excluded = ["backend/logs", "backend/route/static_route/www_root"]
