@@ -5,8 +5,6 @@ import (
 	"net/http"
 
 	"printer/core"
-	"printer/core/id_gen"
-	"printer/core/time_token"
 	"printer/route/action"
 
 	"github.com/gin-gonic/gin"
@@ -19,7 +17,6 @@ func adminHomeDataRoute(router *gin.RouterGroup) {
 
 	type ActionResult struct {
 		core.ResultMessage
-		PdfUrl string `json:"pdfUrl"`
 	}
 
 	var actionConfig = &action.Config{}
@@ -33,14 +30,9 @@ func adminHomeDataRoute(router *gin.RouterGroup) {
 			return err
 		}
 
-		var id = id_gen.NewId()
-		var token = time_token.CreateToken()
-		var pdfUrl = fmt.Sprintf("/api/admin/pdf/%d/%s", id, token)
-
 		c.JSON(http.StatusOK, ActionResult{
 			Success: true,
 			Message: "success",
-			PdfUrl:  pdfUrl,
 		})
 
 		return nil

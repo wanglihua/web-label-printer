@@ -7,4 +7,5 @@ import (
 func Route(router *gin.RouterGroup) {
 	adminHomeDataRoute(router)
 	adminPdfGenRoute(router)
+	adminPrintTestRoute(router)
 }
