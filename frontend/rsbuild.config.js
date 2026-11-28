@@ -57,6 +57,7 @@ export default defineConfig(({env, command, envMode}) => {
             printUrls: true,
             proxy: {
                 '/api': 'http://localhost:8113',
+                '/print': 'http://localhost:8113',
                 '/websocket': {
                     target: 'http://localhost:8113',
                     ws: true,

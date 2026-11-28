@@ -16,7 +16,7 @@ import (
 
 func printPostRoute(router *gin.RouterGroup) {
 	type ActionParam struct {
-		Pdf string `form:"pdf"`
+		Pdf string `json:"pdf"`
 	}
 
 	var validateActionParam = func(param *ActionParam) error {
