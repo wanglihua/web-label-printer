@@ -57,7 +57,7 @@ func printGetRoute(router *gin.RouterGroup) {
 
 		c.JSON(http.StatusOK, ActionResult{
 			Success: true,
-			Message: "success",
+			Message: "print success",
 		})
 
 		return nil

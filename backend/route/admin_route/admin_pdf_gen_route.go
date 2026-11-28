@@ -9,6 +9,7 @@ import (
 	"printer/core"
 	"printer/core/hash"
 	"printer/core/serial_code"
+	"printer/core/time_token"
 	"printer/route/action"
 
 	"github.com/boombuler/barcode/qr"
@@ -57,6 +58,7 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 		}
 
 		// todo check time token
+		time_token.CheckToken(param.Token)
 
 		pdf := gopdf.GoPdf{}
 		pdf.Start(gopdf.Config{
@@ -75,9 +77,9 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 			pdf.SetFont("simhei", "", 14)
 
 			pdf.SetXY(10, 40)
-			pdf.Rotate(30.0, 5.0, 15.0)
-			pdf.Text("Hello World")
-			pdf.RotateReset()
+			// pdf.Rotate(30.0, 5.0, 15.0)
+			pdf.Text(fmt.Sprintf("Hello World, %d", param.Id))
+			// pdf.RotateReset()
 		}
 
 		// draw qrcode

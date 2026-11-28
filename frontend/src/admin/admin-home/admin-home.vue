@@ -15,6 +15,8 @@ onMounted(() => {
 
 <template>
     <page-header menu="admin_home"/>
+    <div class="page-main">
+    </div>
 </template>
 
 <style scoped>
