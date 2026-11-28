@@ -4,8 +4,11 @@ import (
 	"fmt"
 	"math"
 	"printer/core"
+	"printer/core/hash"
+	"printer/core/serial_code"
 	"printer/route/action"
 	"strings"
+	"uuid"
 
 	"github.com/boombuler/barcode/qr"
 	"github.com/gin-gonic/gin"
@@ -67,7 +70,7 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 
 		// draw qrcode
 		{
-			var data = "Hello World"
+			var data = serial_code.CreateSerialCode() + hash.SHA256(uuid.New().String())[0:8]
 			var top float64 = 30
 			var left float64 = 10
 			var width float64 = 80
