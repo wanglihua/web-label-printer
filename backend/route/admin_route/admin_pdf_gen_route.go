@@ -3,12 +3,13 @@ package admin_route
 import (
 	"fmt"
 	"math"
+	"strings"
+	"uuid"
+
 	"printer/core"
 	"printer/core/hash"
 	"printer/core/serial_code"
 	"printer/route/action"
-	"strings"
-	"uuid"
 
 	"github.com/boombuler/barcode/qr"
 	"github.com/gin-gonic/gin"
@@ -68,10 +69,21 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 
 		pdf.AddPage()
 
+		// draw text
+		{
+			pdf.AddTTFFont("simhei", "c:/Windows/Fonts/simhei.ttf")
+			pdf.SetFont("simhei", "", 14)
+
+			pdf.SetXY(10, 40)
+			pdf.Rotate(30.0, 5.0, 15.0)
+			pdf.Text("Hello World")
+			pdf.RotateReset()
+		}
+
 		// draw qrcode
 		{
 			var data = serial_code.CreateSerialCode() + hash.SHA256(uuid.New().String())[0:8]
-			var top float64 = 30
+			var top float64 = 60
 			var left float64 = 10
 			var width float64 = 80
 
@@ -89,6 +101,8 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 			var scale = width / float64(rect.Dx())
 
 			pdf.SaveGraphicsState()
+
+			// pdf.Rotate(30.0, 50.0, 100.0)
 
 			const pdfColorMax = 255
 			const qrcodeColorMax = 65535
@@ -112,6 +126,8 @@ func adminPdfGenRoute(router *gin.RouterGroup) {
 						"DF", 0, 0)
 				}
 			}
+
+			// pdf.RotateReset()
 
 			pdf.RestoreGraphicsState()
 		}
